@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "42856310559",
+    "project_id": "heavy-c0b35",
+    "storage_bucket": "heavy-c0b35.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:42856310559:android:63dde27230c85cfccc722a",
+        "android_client_info": {
+          "package_name": "com.imsiu.heavy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6UngNDutG3P5RUSAlBL1FBtATc7-jn3Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
