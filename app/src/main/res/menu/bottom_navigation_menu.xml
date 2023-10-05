@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/welcomeFragment"
+        android:icon="@drawable/homevik"
+        android:name="com.example.app.HomeFragment"
+        android:title="">
+
+    </item>
+
+
+    <item
+        android:id="@+id/signUpFragment"
+        android:icon="@drawable/accountvik"
+        android:name="com.example.app.SignUpFragment"
+    android:title="">
+
+    </item>
+
+
+
+
+</menu>

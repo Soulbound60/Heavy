@@ -2,16 +2,63 @@ package com.imsiu.heavy
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
+import android.view.View
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.FirebaseAuth
 import com.imsiu.heavy.databinding.ActivityMainBinding
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
+    private lateinit var auth: FirebaseAuth
+    private val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val bottomNavigation = binding.bottomNavigationView
+       // val bottomNavigation: BottomNavigationView = findViewById(R.id.bottom_navigation)
+        bottomNavigation.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.fragment_container -> {
+                   // loadFragment(HomeFragment())
+                    true
+                }
+//                R.id.nav_account -> {
+//                   // loadFragment(AccountFragment())
+//                    true
+//                }
+//                R.id.nav_chat -> {
+//                    // loadFragment(ChatsFragment())
+//                    true
+//                }
+                else -> false
+            }
+        }
     }
+
+    private fun loadFragment(fragment: Fragment) {
+        val bundle = Bundle()
+        //bundle.putString("userId",userId)
+        fragment.arguments = bundle
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.frame_layout, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+
+    }
+    fun showBottomNavigation(show: Boolean) {
+        if (show) {
+            binding.bottomNavigationView.visibility = View.VISIBLE
+        } else {
+            binding.bottomNavigationView.visibility = View.GONE
+        }
+    }
+
 }
