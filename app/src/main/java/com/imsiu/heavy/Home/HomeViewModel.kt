@@ -28,7 +28,8 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                         documentData.get("model").toString(),
                         documentData.get("rentPrice").toString(),
                         documentData.get("owner").toString(),
-                        documentData.get("location") as GeoPoint
+                        documentData.get("city").toString(),
+                        documentData.get("location")as GeoPoint,
                     )
                     trucksArray.add(truck)
                 }

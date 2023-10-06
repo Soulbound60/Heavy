@@ -87,6 +87,7 @@ private lateinit var binding : FragmentLogInBinding
         }
         fireBaseViewxModel.loginState.observe(viewLifecycleOwner, Observer { isLoggedIn ->
             if (isLoggedIn) {
+                Log.d("TAG!@#","LogingStatues :${isLoggedIn}")
                 loadFragment(HomeFragment())
             }
         })

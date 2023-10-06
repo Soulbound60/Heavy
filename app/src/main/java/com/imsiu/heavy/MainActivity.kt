@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.imsiu.heavy.databinding.ActivityMainBinding
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
+import com.imsiu.heavy.Home.HomeFragment
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -22,18 +23,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         val bottomNavigation = binding.bottomNavigationView
        // val bottomNavigation: BottomNavigationView = findViewById(R.id.bottom_navigation)
         bottomNavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.fragment_container -> {
-                   // loadFragment(HomeFragment())
-                    true
-                }
-//                R.id.nav_account -> {
-//                   // loadFragment(AccountFragment())
+//                R.id.fragment_container -> {
+//                    loadFragment(HomeFragment())
 //                    true
 //                }
+                R.id.homeFragment -> {
+                    loadFragment(HomeFragment())
+                    true
+                }
 //                R.id.nav_chat -> {
 //                    // loadFragment(ChatsFragment())
 //                    true
