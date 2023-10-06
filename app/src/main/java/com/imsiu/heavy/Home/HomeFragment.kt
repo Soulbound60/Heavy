@@ -47,10 +47,6 @@ class HomeFragment : Fragment() , TrucksAdapter.ClickListner{
         fireBaseViewxModel = FireBaseViewxModel(requireContext())
         viewModel = HomeViewModel(Application())
 
-
-        binding.fBtn.setOnClickListener {
-            loadFragment(AddTruckFragment())
-        }
         setUpAdapter(true)
         return binding.root
     }
@@ -81,7 +77,6 @@ class HomeFragment : Fragment() , TrucksAdapter.ClickListner{
             }
         }
     }
-
 
 }
 

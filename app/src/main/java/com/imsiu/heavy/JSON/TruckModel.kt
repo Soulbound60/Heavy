@@ -7,6 +7,5 @@ data class TruckModel(
     var model : String,
     var rentPrice :String,
     var owner :String,
-    var city : String,
-    var location : GeoPoint = GeoPoint(23.23,23.12)
+    var location : GeoPoint
 )
