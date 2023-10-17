@@ -12,36 +12,44 @@ import com.google.firebase.auth.FirebaseAuth
 import com.imsiu.heavy.databinding.ActivityMainBinding
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
+import com.imsiu.heavy.Home.HomeFragment
+import com.imsiu.heavy.account.AccountInformationFragment
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
-    private lateinit var auth: FirebaseAuth
-    private val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+
+
         val bottomNavigation = binding.bottomNavigationView
-       // val bottomNavigation: BottomNavigationView = findViewById(R.id.bottom_navigation)
+        // val bottomNavigation: BottomNavigationView = findViewById(R.id.bottom_navigation)
         bottomNavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.fragment_container -> {
-                   // loadFragment(HomeFragment())
+//                R.id.fragment_container -> {
+//                    loadFragment(HomeFragment())
+//                    true
+//                }
+                R.id.homeFragment -> {
+                    loadFragment(HomeFragment())
                     true
                 }
-//                R.id.nav_account -> {
-//                   // loadFragment(AccountFragment())
-//                    true
-//                }
-//                R.id.nav_chat -> {
-//                    // loadFragment(ChatsFragment())
-//                    true
-//                }
+                R.id.accountFragment -> {
+                     loadFragment(AccountInformationFragment())
+                    true
+                }
                 else -> false
             }
+
         }
+
     }
+ // App > Java > com.
+
 
     private fun loadFragment(fragment: Fragment) {
         val bundle = Bundle()

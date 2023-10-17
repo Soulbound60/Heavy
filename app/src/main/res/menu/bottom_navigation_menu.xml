@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/welcomeFragment"
+        android:id="@+id/homeFragment"
         android:icon="@drawable/homevik"
         android:name="com.example.app.HomeFragment"
         android:title="">
@@ -11,10 +11,10 @@
 
 
     <item
-        android:id="@+id/signUpFragment"
+        android:id="@+id/accountFragment"
         android:icon="@drawable/accountvik"
         android:name="com.example.app.SignUpFragment"
-    android:title="">
+        android:title="">
 
     </item>
 

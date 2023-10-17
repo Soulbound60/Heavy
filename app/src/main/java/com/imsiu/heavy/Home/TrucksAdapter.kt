@@ -24,15 +24,26 @@ class TrucksAdapter(var clickListner: ClickListner): ListAdapter<TruckModel, Tru
         var truck = getItem(position)
 
         holder.binding.apply {
-
+            itemCard.setOnClickListener {
+                clickListner.truckDetail(truck)
+            }
+            carTitle.text = truck.model
+            cityTxt.text = truck.city
+            priceTxt.text = truck.rentPrice
+            distanceTxt.text = clickListner.distanceIs(truck).toString()
         }
 
     }
     interface ClickListner{
-        fun addCollege(truck: TruckModel)
+
+        fun truckDetail(truck: TruckModel)
+        fun distanceIs(truck: TruckModel):Double
 
     }// interface
 }
+
+
+
 class ShowsDiffutil (): DiffUtil.ItemCallback<TruckModel>() {
     override fun areItemsTheSame(oldItem: TruckModel, newItem: TruckModel): Boolean {
 

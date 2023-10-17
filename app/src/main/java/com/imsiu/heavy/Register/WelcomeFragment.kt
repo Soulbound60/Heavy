@@ -27,8 +27,14 @@ class WelcomeFragment : Fragment() {
         savedInstanceState: Bundle? ): View? {
         binding = FragmentWelcomeBinding.inflate(layoutInflater)
 
-        loadFragment(SignUpFragment())
+
+        binding.welcomeFragment.setOnClickListener {
+            loadFragment(LogInFragment())
+        }
+
+
         (activity as MainActivity).showBottomNavigation(false)
+        //loadFragment(SignUpFragment())
         return binding.root
     }
     private fun loadFragment(fragment: Fragment) {

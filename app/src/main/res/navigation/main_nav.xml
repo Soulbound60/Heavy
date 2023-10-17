@@ -22,7 +22,11 @@
         android:id="@+id/signUpFragment"
         android:name="com.imsiu.heavy.Register.SignUpFragment"
         android:label="fragment_sign_up"
-        tools:layout="@layout/fragment_sign_up" />
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUpFragment_to_logInFragment"
+            app:destination="@id/logInFragment" />
+    </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.imsiu.heavy.Home.HomeFragment"
@@ -31,6 +35,12 @@
         <action
             android:id="@+id/action_homeFragment_to_addTruck"
             app:destination="@id/addTruck" />
+        <action
+            android:id="@+id/action_homeFragment_to_truckDetailFragment"
+            app:destination="@id/truckDetailFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_accountInformationFragment"
+            app:destination="@id/accountInformationFragment" />
     </fragment>
     <fragment
         android:id="@+id/welcomeFragment"
@@ -53,4 +63,19 @@
             android:id="@+id/action_addTruck_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/truckDetailFragment"
+        android:name="com.imsiu.heavy.Home.TruckDetailFragment"
+        android:label="fragment_truck_detail"
+        tools:layout="@layout/fragment_truck_detail" />
+    <fragment
+        android:id="@+id/accountInformationFragment"
+        android:name="com.imsiu.heavy.account.AccountInformationFragment"
+        android:label="fragment_account_information"
+        tools:layout="@layout/fragment_account_information" >
+        <action
+            android:id="@+id/action_accountInformationFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+
 </navigation>
