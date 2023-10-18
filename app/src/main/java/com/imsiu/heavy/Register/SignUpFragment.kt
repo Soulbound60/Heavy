@@ -1,6 +1,8 @@
 package com.imsiu.heavy.Register
 
 import ClientModel
+import android.annotation.SuppressLint
+import android.app.DatePickerDialog
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
@@ -12,6 +14,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.widget.SwitchCompat
@@ -24,6 +27,8 @@ import com.imsiu.heavy.Helper.FireBaseViewxModel
 import com.imsiu.heavy.R
 import com.imsiu.heavy.databinding.FragmentSignUpBinding
 import androidx.core.content.ContextCompat
+import com.imsiu.heavy.JSON.Birthday
+import java.util.Calendar
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -38,14 +43,10 @@ class SignUpFragment : Fragment() {
     var isDriver: Boolean = false
     var ClientOrDriver: String = "Client"
     lateinit var fireBaseViewxModel : FireBaseViewxModel
+    var dateFlag : Boolean = false
+    var birthday : Birthday = Birthday(0,0,0)
 
-    var idText : Boolean = false
-    var phoneText : Boolean = false
-    var nameText : Boolean = false
-
-
-
-
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -56,6 +57,11 @@ class SignUpFragment : Fragment() {
         val switch: SwitchCompat = binding.switch1
         switch.setOnCheckedChangeListener { _, isChecked ->
             ClientOrDriver = if (isChecked) "Driver" else "Client"
+            if (isChecked) {
+                binding.switch1.text = "Registed As Driver"
+            } else {
+                binding.switch1.text = "Register As Client"
+            }
             // Optionally, handle any other logic based on the isChecked value
         }
         binding.idTxt.addTextChangedListener(createNumericTextWatcher(binding.idTxt))
@@ -72,7 +78,7 @@ class SignUpFragment : Fragment() {
                 Pair(binding.usernameTxt, ::isLetterOrWhitespace))
 
 
-            if (areFieldsFilled()&& areNumericFieldsValid && areLetterFieldsValid) {
+            if (areFieldsFilled()&& areNumericFieldsValid && areLetterFieldsValid && dateFlag) {
                 if (passwordsMatch()) {
                     db.collection("Users")
                         .whereEqualTo("email", binding.emailTxt.text.toString())
@@ -132,6 +138,38 @@ class SignUpFragment : Fragment() {
 // Add more if needed
 
 
+        val btnSelectBirthday = binding.btnSelectBirthday
+        val tvSelectedBirthday = binding.tvSelectedBirthday
+
+        btnSelectBirthday.setOnClickListener {
+            // Get current date
+            val calendar = Calendar.getInstance()
+            val currentYear = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH)
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            // Initialize date picker dialog
+            val datePickerDialog = DatePickerDialog(
+                requireContext(),
+                { _, selectedYear, selectedMonth, selectedDayOfMonth ->
+                    val age = currentYear - selectedYear
+
+                    if (age < 18) {
+                        // Display a toast if age is less than 18
+                        Toast.makeText(requireContext(), "You need to be over 18.", Toast.LENGTH_LONG).show()
+                    } else {
+                        birthday = Birthday(selectedYear, selectedMonth + 1, selectedDayOfMonth)
+                        tvSelectedBirthday.text = "${birthday.day}/${birthday.month}/${birthday.year}"
+                        dateFlag = true
+
+                    }
+                },
+                currentYear, month, day
+            )
+
+            datePickerDialog.show()
+        }
+
 
 
         return binding.root
@@ -140,29 +178,23 @@ class SignUpFragment : Fragment() {
 
     private fun addNewUser(userName: String, email: String, password: String, id : String,phone :String) {
         fireBaseViewxModel.createUser(ClientModel(id, userName,
-            email,password,binding.phoneNumber.text.toString(),ClientOrDriver,binding.cityTxt.text.toString()))
-
-
+            email,password,binding.phoneNumber.text.toString(),ClientOrDriver,binding.cityTxt.text.toString(), birthday = birthday))
         runObserver()
 
     }
     private fun loadFragment(fragment: Fragment) {
         val bundle = Bundle()
         var supportFragmentManager = (activity as FragmentActivity).supportFragmentManager
-        //bundle.putString("userId",userId)
         fragment.arguments = bundle
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.frame_layout, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
-
     }
-
     private fun runObserver(){
         fireBaseViewxModel.signUpstatues.observe(viewLifecycleOwner, Observer {
             signed -> if (signed){
-                loadFragment(LogInFragment())
-        }
+                loadFragment(LogInFragment()) }
         })
     }
 

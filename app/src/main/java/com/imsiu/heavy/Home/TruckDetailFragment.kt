@@ -78,7 +78,7 @@ var ownerPhoneNumber = ""
         return binding.root
     }
 
-private fun fillXML(owner:ClientModel,truck :TruckModel){
+    private fun fillXML(owner:ClientModel,truck :TruckModel){
     binding.truckModelTxt.text = truck.model
     binding.rentTxt.text = truck.rentPrice
     binding.ownerNameTxt.text = owner.name

@@ -46,7 +46,7 @@ class FireBaseViewxModel(context1: Context) {
                         if (tokenResult.isSuccessful) {
                            // val token = tokenResult.result?.token
 
-
+                            Log.d("Test123","")
                             // Save user data to Firestore under 'Users' collection
                             db.collection("Users").document(user!!.uid).set(clientModel)
                                 .addOnSuccessListener {

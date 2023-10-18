@@ -73,5 +73,7 @@ class AccountInformationFragment : Fragment() {
         binding.usernameTxt.text = user.name
         binding.cityTxt.text = user.city
         binding.emailTxt.text = user.email
+        binding.tvSelectedBirthday.text = user.birthday?.day.toString()
+
     }
 }

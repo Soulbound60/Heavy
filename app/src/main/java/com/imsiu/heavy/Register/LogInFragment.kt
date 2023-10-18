@@ -60,9 +60,9 @@ private lateinit var binding : FragmentLogInBinding
        // var fireBaseViewModel : FireBaseViewModel = FireBaseViewModel(requireContext())
         binding.logBtn.setOnClickListener {
             runnObservers()
-            //binding.emailTxt.text.isNotEmpty() && binding.passTxt.text.isNotEmpty()
-            if (true) {
-                fireBaseViewxModel.loginUser("soulbound60@gmail.com","112233Qq")
+            if (binding.emailTxt.text.isNotEmpty() && binding.passTxt.text.isNotEmpty()) {
+                fireBaseViewxModel.loginUser(binding.emailTxt.text.toString(),binding.passTxt.text.toString())
+                runnObservers()
             } else {
                 Toast.makeText(requireContext(), "الرجاء ادخال الرقم السري", Toast.LENGTH_SHORT)
                     .show()
