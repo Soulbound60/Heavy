@@ -14,16 +14,21 @@ data class ClientModel(
     var long: Double = 0.0,
    // var birthday: Birthday? = null  // Added birthday field
 )
-
 fun DocumentSnapshot.toClientModel(): ClientModel {
-    // Extract birthday fields from Firestore document
-    val birthdayYear = getLong("birthdayYear")?.toInt()
-    val birthdayMonth = getLong("birthdayMonth")?.toInt()
-    val birthdayDay = getLong("birthdayDay")?.toInt()
+    // Extract birthday map from Firestore document
+    val birthdayMap = get("birthday") as? Map<String, Any>
 
+    // Extract birthday fields from the map
+    val birthdayYear = (birthdayMap?.get("year") as? Long)?.toInt()
+    val birthdayMonth = (birthdayMap?.get("month") as? Long)?.toInt()
+    val birthdayDay = (birthdayMap?.get("day") as? Long)?.toInt()
+
+    // Create Birthday object
     val birthday = if (birthdayYear != null && birthdayMonth != null && birthdayDay != null) {
         Birthday(birthdayYear, birthdayMonth, birthdayDay)
     } else null
+
+    // ... (other code remains the same)
 
     return ClientModel(
         id = id,
@@ -33,9 +38,9 @@ fun DocumentSnapshot.toClientModel(): ClientModel {
         phoneNumber = getString("phoneNumber") ?: "",
         type = getString("type") ?: "",
         city = getString("city") ?: "",
-        birthday = birthday , // Assign the birthday object,
+        birthday = birthday, // Assign the birthday object
         lat = getDouble("lat") ?: 0.0,
         long = getDouble("long") ?: 0.0,
-
     )
 }
+

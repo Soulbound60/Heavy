@@ -88,7 +88,10 @@ class FireBaseViewxModel(context1: Context) {
                         loginState.value = true  // Notify observers of successful login
 
                         CoroutineScope(Dispatchers.IO).launch {
-                            ConstantClient = fetchUserInfo(user.uid)!!
+                            if (user.uid.isNotEmpty()){
+                                ConstantClient = fetchUserInfo(user.uid)!!
+                            }
+                           // ConstantClient = fetchUserInfo(user.uid)!!
                         }
                         ConstantUID = user.uid
                     }
@@ -126,6 +129,7 @@ class FireBaseViewxModel(context1: Context) {
             val document = Tasks.await(db.collection("Users").document(uid).get())
             if (document.exists()) {
                 val clientModel = document.toClientModel()
+                Log.d("TestUID","Function $clientModel")
 
                 clientModel
             } else {
@@ -133,7 +137,7 @@ class FireBaseViewxModel(context1: Context) {
                 null
             }
         } catch (exception: Exception) {
-
+            Log.d("TestUID","Error ${exception.message}")
             null
         }
     }

@@ -63,17 +63,19 @@ class HomeFragment : Fragment() , TrucksAdapter.ClickListner{
         viewModel = HomeViewModel(Application())
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_MODE_CHANGED)
 
-    if (ConstantClient.type=="Client"){
+    if (ConstantClient.type.toString()=="Client"){
         binding.fBtn.visibility = View.GONE
+        Log.d("TEST!@#","it is a Client")
     }else{
         binding.fBtn.visibility = View.VISIBLE
+        binding.fBtn.setOnClickListener {
+            loadFragment(AddTruckFragment())
+        }
     }
         var fragg = SignUpFragment()
         Log.d("FindingTheError","statues fragment Activity=${fragg.activity}")
 
-        binding.fBtn.setOnClickListener {
-            loadFragment(AddTruckFragment())
-        }
+
         setUpAdapter(true)
 
 
